@@ -130,7 +130,7 @@ func stripeEventHandler(w http.ResponseWriter, r *http.Request) {
 		"StripeEventID":     checkedEvent.ID,
 		"StripeEventLive":   checkedEvent.Livemode,
 		"StripeEventReq":    checkedEvent.Request,
-		"StripeEventUserID": checkedEvent.UserID,
+		"StripeEventUserID": "", /*checkedEvent.UserID*/
 	})
 
 	switch checkedEvent.Type {

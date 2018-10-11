@@ -48,23 +48,26 @@ func (c *Command) BillingCheck(stripeSecretKey string) {
 	// Find single stripe customers with multiple subscriptions
 	{
 		customers := customer.List(nil)
-		for customers.Next() {
-			thisCustomer := customers.Customer()
+		/*
+			for customers.Next() {
+				thisCustomer := customers.Customer()
 
-			var hasValidSubscription bool
-			for _, sub := range thisCustomer.Subscriptions.Data {
-				if sub.EndCancel {
-					// not active
-					continue
-				}
-				// active
-				if hasValidSubscription {
-					c.logger.Warnf("customer %q has multiple valid subscriptions", thisCustomer.ID)
-					break
+				var hasValidSubscription bool = true
+				/*
+				for _, sub := range thisCustomer.Subscriptions.Data {
+					if sub.EndCancel {
+						// not active
+						continue
+					}
+					// active
+					if hasValidSubscription {
+						c.logger.Warnf("customer %q has multiple valid subscriptions", thisCustomer.ID)
+						break
+					}
+					hasValidSubscription = true
 				}
 				hasValidSubscription = true
-			}
-		}
+			}*/
 		if err := customers.Err(); err != nil {
 			c.logger.WithError(err).Fatal("could not get customer list for multiple subscribers check")
 		}
@@ -78,12 +81,12 @@ func (c *Command) BillingCheck(stripeSecretKey string) {
 		for customers.Next() {
 			thisCustomer := customers.Customer()
 
-			var hasValidSubscription bool
-			for _, sub := range thisCustomer.Subscriptions.Data {
+			var hasValidSubscription bool = false
+			/*for _, sub := range thisCustomer.Subscriptions.Data {
 				if !sub.EndCancel {
 					hasValidSubscription = true
 				}
-			}
+			}*/
 			if !hasValidSubscription {
 				continue
 			}

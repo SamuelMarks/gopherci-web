@@ -255,14 +255,14 @@ func (u *User) StripeDiscount(customer *stripe.Customer) *Discount {
 		discount.Description = fmt.Sprintf("%d off", customer.Discount.Coupon.AmountOff)
 	}
 
-	switch customer.Discount.Coupon.Duration {
+	/*switch customer.Discount.Coupon.Duration {
 	case coupon.Forever:
 		discount.Description += " forever"
 	case coupon.Once:
 		discount.Description += " the next invoice"
 	case coupon.Repeating:
 		discount.Description += fmt.Sprintf(" for %d months", customer.Discount.Coupon.DurationPeriod)
-	}
+	}*/
 
 	return &discount
 }
@@ -308,6 +308,7 @@ func amountString(currency stripe.Currency, amount int64) string {
 // current billing period if endCancel is true. It does not disable any
 // enabled installations.
 func (u *User) CancelStripeSubscription(id string, endCancel bool) error {
-	_, err := sub.Cancel(id, &stripe.SubParams{EndCancel: endCancel})
-	return err
+	/*_, err := sub.Cancel(id, &stripe.SubParams{EndCancel: endCancel})
+	return err*/
+	return nil
 }
